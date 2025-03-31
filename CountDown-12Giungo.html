@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Countdown al 12 giugno</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      text-align: center;
+      padding-top: 50px;
+    }
+    h1 {
+      font-size: 3em;
+    }
+    #countdown {
+      font-size: 2em;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>⏳ Countdown al 12 giugno ore 17:00</h1>
+  <div id="countdown">Calcolo in corso...</div>
+
+  <script>
+    function updateCountdown() {
+      const now = new Date();
+      const target = new Date('2025-06-12T17:00:00');
+
+      const diff = target - now;
+
+      if (diff <= 0) {
+        document.getElementById("countdown").textContent = "⏰ È arrivato il momento!";
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      document.getElementById("countdown").textContent =
+        `${days} giorni, ${hours}h ${minutes}m ${seconds}s`;
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+  </script>
+</body>
+</html>
