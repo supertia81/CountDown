@@ -2,50 +2,81 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <title>Countdown al 12 giugno</title>
+  <title>Countdown Dimissioni</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f0f0f0;
+      background: url('https://tse3.mm.bing.net/th?id=OIP.EbmtzkV97IfkSyg5G2PCAQHaHd&pid=Api') no-repeat center center fixed;
+      background-size: cover;
+      color: #333;
       text-align: center;
-      padding-top: 50px;
+      padding: 30px;
     }
-    h1 {
-      font-size: 3em;
+    .countdown {
+      margin: 30px auto;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      max-width: 500px;
     }
-    #countdown {
-      font-size: 2em;
-      margin-top: 20px;
+    .event-title {
+      font-size: 1.6em;
+      margin-bottom: 10px;
+    }
+    .time-remaining {
+      font-size: 1.2em;
+      color: #555;
+    }
+    .event-image {
+      width: 80px;
+      height: auto;
+      margin-bottom: 15px;
     }
   </style>
 </head>
 <body>
-  <h1>⏳ Countdown al 12 giugno ore 17:00</h1>
-  <div id="countdown">Calcolo in corso...</div>
+  <div class="countdown">
+    <img src="https://img.icons8.com/color/96/document--v1.png" alt="Dimissioni" class="event-image">
+    <div class="event-title">DIMISSIONI - 16 giugno 2025 ore 09:00</div>
+    <div id="countdown1" class="time-remaining"></div>
+  </div>
+  <div class="countdown">
+    <img src="https://img.icons8.com/fluency/96/return-purchase.png" alt="Riconsegna materiale" class="event-image">
+    <div class="event-title">RICONSEGNA MATERIALE - 1 agosto 2025 ore 09:00</div>
+    <div id="countdown2" class="time-remaining"></div>
+  </div>
+  <div class="countdown">
+    <img src="https://img.icons8.com/emoji/96/waving-hand-emoji.png" alt="Ultimo giorno" class="event-image">
+    <div class="event-title">ULTIMO GIORNO DI LAVORO - 17 agosto 2025 ore 09:00</div>
+    <div id="countdown3" class="time-remaining"></div>
+  </div>
 
   <script>
-    function updateCountdown() {
-      const now = new Date();
-      const target = new Date('2025-06-12T17:00:00');
+    function updateCountdown(id, eventDate) {
+      const now = new Date().getTime();
+      const distance = eventDate - now;
 
-      const diff = target - now;
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
 
-      if (diff <= 0) {
-        document.getElementById("countdown").textContent = "⏰ È arrivato il momento!";
-        return;
-      }
-
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-      document.getElementById("countdown").textContent =
-        `${days} giorni, ${hours}h ${minutes}m ${seconds}s`;
+      document.getElementById(id).innerHTML = `${days} giorni, ${hours} ore, ${minutes} minuti`;
     }
 
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
+    function startCountdowns() {
+      const event1 = new Date("2025-06-16T09:00:00").getTime();
+      const event2 = new Date("2025-08-01T09:00:00").getTime();
+      const event3 = new Date("2025-08-17T09:00:00").getTime();
+
+      setInterval(() => {
+        updateCountdown("countdown1", event1);
+        updateCountdown("countdown2", event2);
+        updateCountdown("countdown3", event3);
+      }, 1000);
+    }
+
+    startCountdowns();
   </script>
 </body>
 </html>
